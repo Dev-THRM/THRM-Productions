@@ -813,12 +813,28 @@ body.loaded .navbar {
         display: flex;
         flex-direction: column;
     }
+    .ad-visuals {
+        width: 100%;
+    }
     .ad-desc {
         text-align: center;
     }
     .visual-stack {
         width: 100%;
         max-width: 400px;
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .visual-stack {
+        height: 350px;
+    }
+    .item-3 {
+        transform: translate(20px, 0px) scale(0.9);
+    }
+    .item-2 {
+        transform: translate(10px, 0px) scale(0.95);
     }
 }
 
