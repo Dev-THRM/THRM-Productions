@@ -8,7 +8,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=1.1">
     <style>
         .contact-page {
@@ -16,7 +18,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background-color: transparent; /* Let global grid show through */
+            background-color: transparent;
+            /* Let global grid show through */
         }
 
         .contact-hero {
@@ -37,13 +40,110 @@
             text-transform: uppercase;
         }
 
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 60px;
+            text-align: left;
+        }
+
+        @media (min-width: 900px) {
+            .contact-container {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+
         .contact-info-grid {
             display: flex;
             flex-direction: column;
             gap: 40px;
-            max-width: 800px;
             width: 100%;
-            margin-top: 60px;
+        }
+
+        .contact-form {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .contact-form h3 {
+            font-family: var(--font-ui);
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--white);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-yellow);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-yellow);
+            color: #000;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-yellow-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .result-message {
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+            min-height: 20px;
         }
 
         .info-card {
@@ -69,7 +169,8 @@
             letter-spacing: 2px;
         }
 
-        .info-card p, .info-card a {
+        .info-card p,
+        .info-card a {
             font-family: var(--font-body);
             font-size: 1.2rem;
             color: var(--white);
@@ -80,7 +181,7 @@
         .info-card a:hover {
             color: var(--primary-yellow-hover);
         }
-        
+
         .navbar {
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
@@ -110,28 +211,63 @@
     <main class="contact-page">
         <section class="contact-hero">
             <h1>GET IN TOUCH</h1>
-            <p style="font-family: var(--font-body); font-size: 1.2rem; color: rgba(255,255,255,0.7); max-width: 600px;">
+            <p
+                style="font-family: var(--font-body); font-size: 1.2rem; color: rgba(255,255,255,0.7); max-width: 600px;">
                 Ready to create something great? Reach out to us below.
             </p>
-            
-            <div class="contact-info-grid">
-                <!-- Address -->
-                <div class="info-card fade-up">
-                    <h3>Office Address</h3>
-                    <p>1st FLOOR, OFFICE NO-04 SEASONS HARMONY<br>COMMERCIAL BUILDING<br>NR AYUSH NX KALYAN WEST, 421301</p>
-                </div>
-                
-                <!-- Email -->
-                <div class="info-card fade-up">
-                    <h3>Email</h3>
-                    <a href="mailto:thrmproductions@gmail.com">thrmproductions@gmail.com</a>
-                </div>
-                
-                <!-- Phone -->
-                <div class="info-card fade-up">
-                    <h3>Phone</h3>
-                    <a href="tel:+919004500657">+91 9004500657</a> <span style="color: rgba(255,255,255,0.5);">/</span> 
-                    <a href="tel:+919665220569">9665220569</a>
+
+            <div class="contact-container">
+                <!-- Contact Form -->
+                <form class="contact-form fade-up" action="https://api.web3forms.com/submit" method="POST"
+                    id="contactForm">
+                    <h3>Send a message</h3>
+                    <!-- Replace with your Access Key from Web3Forms -->
+                    <input type="hidden" name="access_key" value="8fca3f44-c985-4439-b14f-f83bf97cb059">
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required
+                            placeholder="Tell us about your project..."></textarea>
+                    </div>
+
+                    <!-- Honeypot Spam Protection -->
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div id="result" class="result-message"></div>
+                </form>
+
+                <div class="contact-info-grid">
+                    <!-- Address -->
+                    <div class="info-card fade-up stagger-1">
+                        <h3>Office Address</h3>
+                        <p>1st FLOOR, OFFICE NO-04 SEASONS HARMONY<br>COMMERCIAL BUILDING<br>NR AYUSH NX KALYAN WEST,
+                            421301</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="info-card fade-up stagger-2">
+                        <h3>Email</h3>
+                        <a href="mailto:thrmproductions@gmail.com">thrmproductions@gmail.com</a>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="info-card fade-up stagger-3">
+                        <h3>Phone</h3>
+                        <a href="tel:+919004500657">+91 9004500657</a> <span
+                            style="color: rgba(255,255,255,0.5);">/</span>
+                        <a href="tel:+919665220569">9665220569</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -141,7 +277,8 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <a href="index.html" class="logo"><img src="./assets/prod_logo.png" alt="THRM Productions"></a>
-                    <p>We are a full-service production house crafting unforgettable series, music videos, and commercial content.</p>
+                    <p>We are a full-service production house crafting unforgettable series, music videos, and
+                        commercial content.</p>
                 </div>
 
                 <div class="footer-links">
@@ -152,13 +289,15 @@
                     </div>
                     <div class="link-group">
                         <h4>Socials</h4>
-                        <a href="https://www.instagram.com/thrmproductions?igsh=YTBsdHF4dGFodWR5" target="_blank">Instagram</a>
-                        <a href="https://www.youtube.com/@THRMProductions" target="_blank">YouTube</a>  
+                        <a href="https://www.instagram.com/thrmproductions?igsh=YTBsdHF4dGFodWR5"
+                            target="_blank">Instagram</a>
+                        <a href="https://www.youtube.com/@THRMProductions" target="_blank">YouTube</a>
                     </div>
                     <div class="link-group">
                         <h4>Contact</h4>
                         <a href="mailto:thrmproductions@gmail.com">thrmproductions@gmail.com</a>
-                        <p>1st FLOOR, OFFICE NO-04 SEASONS HARMONY, COMMERCIAL BUILDING<br>NR AYUSH NX KALYAN WEST, 421301</p>
+                        <p>1st FLOOR, OFFICE NO-04 SEASONS HARMONY, COMMERCIAL BUILDING<br>NR AYUSH NX KALYAN WEST,
+                            421301</p>
                     </div>
                 </div>
             </div>
@@ -169,5 +308,53 @@
     </main>
 
     <script src="script.js?v=1.1"></script>
+    <script>
+        const form = document.getElementById('contactForm');
+        const result = document.getElementById('result');
+
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                result.style.color = "var(--white)";
+                result.innerHTML = "Sending message...";
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                    .then(async (response) => {
+                        let json = await response.json();
+                        if (response.status == 200) {
+                            result.innerHTML = json.message || "Message sent successfully!";
+                            result.style.color = "#4caf50"; // Green color
+                            form.reset();
+                        } else {
+                            console.log(response);
+                            result.innerHTML = json.message || "Error submitting form.";
+                            result.style.color = "#f44336"; // Red color
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        result.innerHTML = "Something went wrong!";
+                        result.style.color = "#f44336";
+                    })
+                    .finally(function () {
+                        setTimeout(() => {
+                            result.innerHTML = "";
+                        }, 5000);
+                    });
+            });
+        }
+    </script>
 </body>
+
 </html>
