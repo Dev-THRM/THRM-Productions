@@ -842,7 +842,22 @@ body.loaded .navbar {
 .video-carousel-section {
     position: relative;
     z-index: 10;
-    margin-top: -150px; /* Pulls it up to overlap the previous maroon section */
+    margin-top: -60px; /* Pulls section up to reduce the large gap */
+    margin-bottom: 80px;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.carousel-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
 }
 
 .video-carousel {
@@ -854,8 +869,8 @@ body.loaded .navbar {
 }
 
 .video-item {
-    flex: 0 0 340px; /* Width for vertical format */
-    height: 600px;   /* Height for vertical format */
+    flex: 0 0 280px; /* Width for vertical format */
+    height: 498px;   /* Height for vertical format */
     position: relative;
     border-radius: 8px;
     overflow: hidden;
@@ -879,11 +894,12 @@ body.loaded .navbar {
 
 @media (max-width: 768px) {
     .video-item {
-        flex: 0 0 260px;
-        height: 460px;
+        flex: 0 0 220px;
+        height: 391px;
     }
     .video-carousel-section {
-        margin-top: -80px;
+        margin-top: 60px;
+        margin-bottom: 60px;
     }
 }
 
