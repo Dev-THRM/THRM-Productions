@@ -72,6 +72,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 fx.setText(el.getAttribute('data-text'));
             }, index * 400); 
         });
+
+        // Smooth scroll to anchor if hash is present in URL
+        if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }, 200);
+            }
+        }
     }, 2000);
 
     const hero = document.querySelector('.hero');

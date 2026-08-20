@@ -1,0 +1,28 @@
+# Enable Rewrite Engine
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+RewriteBase /
+
+# 1. Redirect /index.html and /index to root /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+(index|index\.html)?[\s\?] [NC]
+RewriteRule ^(index|index\.html)$ / [R=301,L,NC]
+
+# 2. Redirect requests with .html extension to clean URLs (e.g. /contact.html -> /contact)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+([^.]+)\.html[\s\?] [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# 3. Direct clean URLs for sections (e.g. /about -> /#about-us, /work -> /#our-work)
+RewriteRule ^about/?$ /#about-us [R=301,NE,L]
+RewriteRule ^about-us/?$ /#about-us [R=301,NE,L]
+RewriteRule ^work/?$ /#our-work [R=301,NE,L]
+RewriteRule ^our-work/?$ /#our-work [R=301,NE,L]
+
+# 4. Internally rewrite clean URLs to corresponding .html file if it exists
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.html [L]
+
+# Fallback check if DOCUMENT_ROOT check differs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]

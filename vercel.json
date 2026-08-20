@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/about", "destination": "/#about-us", "permanent": true },
+    { "source": "/about-us", "destination": "/#about-us", "permanent": true },
+    { "source": "/work", "destination": "/#our-work", "permanent": true },
+    { "source": "/our-work", "destination": "/#our-work", "permanent": true }
+  ]
+}

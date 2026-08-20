@@ -1,0 +1,8 @@
+# Netlify / Cloudflare Pages clean redirects & rewrites
+/index.html     /               301
+/contact.html   /contact        301
+/about          /#about-us      301
+/about-us       /#about-us      301
+/work           /#our-work      301
+/our-work       /#our-work      301
+/contact        /contact.html   200
