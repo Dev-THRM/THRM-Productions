@@ -73,16 +73,81 @@ document.addEventListener("DOMContentLoaded", () => {
             }, index * 400); 
         });
 
-        // Smooth scroll to anchor if hash is present in URL
-        if (window.location.hash) {
-            const target = document.querySelector(window.location.hash);
-            if (target) {
-                setTimeout(() => {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }, 200);
+        // Clean URL routing on initial load (without #)
+        handleInitialRoute();
+    }, 2000);
+
+    // Helper to find target section element on home page
+    function getTargetElementForPath(path) {
+        const cleanPath = (path || '').toLowerCase().replace(/\/$/, '') || '/';
+        if (cleanPath === '/about' || cleanPath === '/about-us' || cleanPath === '#about-us') {
+            return document.getElementById('about-us');
+        }
+        if (cleanPath === '/work' || cleanPath === '/our-work' || cleanPath === '#our-work') {
+            return document.getElementById('our-work');
+        }
+        return null;
+    }
+
+    // Scroll to section and update address bar cleanly (no #)
+    function scrollToSection(path, updateHistory = true, action = 'push') {
+        const isHomePage = !!document.getElementById('about-us');
+        if (!isHomePage) return;
+
+        const cleanPath = (path || '').toLowerCase().replace(/\/$/, '') || '/';
+        const target = getTargetElementForPath(cleanPath);
+
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            if (updateHistory) {
+                const canonicalPath = cleanPath.includes('about') ? '/about' : '/work';
+                window.history[action + 'State'](null, '', canonicalPath);
+            }
+        } else if (cleanPath === '/' || cleanPath === '') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (updateHistory) {
+                window.history[action + 'State'](null, '', '/');
             }
         }
-    }, 2000);
+    }
+
+    // Intercept clicks on links on home page for clean URLs
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        const isHomePage = !!document.getElementById('about-us');
+        if (!isHomePage) return;
+
+        if (href === '/about' || href === '/about-us' || href === '#about-us' ||
+            href === '/work' || href === '/our-work' || href === '#our-work' ||
+            (href === '/' && link.classList.contains('logo'))) {
+            e.preventDefault();
+            scrollToSection(href, true, 'push');
+        }
+    });
+
+    // Handle browser Back / Forward buttons cleanly
+    window.addEventListener('popstate', () => {
+        const isHomePage = !!document.getElementById('about-us');
+        if (isHomePage) {
+            scrollToSection(window.location.pathname, false);
+        }
+    });
+
+    // Initial page load routing: clean any hashes and scroll to target
+    function handleInitialRoute() {
+        const path = window.location.pathname;
+        const hash = window.location.hash;
+        if (hash) {
+            const cleanPath = hash.includes('about') ? '/about' : (hash.includes('work') ? '/work' : '/');
+            scrollToSection(cleanPath, true, 'replace');
+        } else if (path && path !== '/') {
+            scrollToSection(path, false);
+        }
+    }
 
     const hero = document.querySelector('.hero');
 
