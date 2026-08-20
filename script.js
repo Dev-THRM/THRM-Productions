@@ -1,3 +1,15 @@
+// Instant Hash Clean: If browser has a '#' from previous cache, immediately strip it
+if (window.location.hash) {
+    const rawHash = window.location.hash.toLowerCase();
+    let initialCleanPath = '/';
+    if (rawHash.includes('about')) initialCleanPath = '/about';
+    else if (rawHash.includes('work')) initialCleanPath = '/work';
+    else if (rawHash.includes('contact')) initialCleanPath = '/contact';
+    try {
+        window.history.replaceState(null, '', initialCleanPath);
+    } catch (e) {}
+}
+
 class TextScramble {
     constructor(el) {
         this.el = el;
@@ -53,6 +65,9 @@ class TextScramble {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Clean URL routing on page load (without #)
+    handleInitialRoute();
+
     // Splash Screen Logic (2 seconds delay)
     setTimeout(() => {
         const splashScreen = document.getElementById('splash-screen');
@@ -73,8 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }, index * 400); 
         });
 
-        // Clean URL routing on initial load (without #)
-        handleInitialRoute();
+        // Trigger scroll if arriving on /about or /work
+        handleInitialRoute(true);
     }, 2000);
 
     // Helper to find target section element on home page
@@ -90,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Scroll to section and update address bar cleanly (no #)
-    function scrollToSection(path, updateHistory = true, action = 'push') {
+    function scrollToSection(path, updateHistory = true, action = 'push', shouldScroll = true) {
         const isHomePage = !!document.getElementById('about-us');
         if (!isHomePage) return;
 
@@ -98,13 +113,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const target = getTargetElementForPath(cleanPath);
 
         if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            if (shouldScroll) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
             if (updateHistory) {
                 const canonicalPath = cleanPath.includes('about') ? '/about' : '/work';
                 window.history[action + 'State'](null, '', canonicalPath);
             }
         } else if (cleanPath === '/' || cleanPath === '') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (shouldScroll) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
             if (updateHistory) {
                 window.history[action + 'State'](null, '', '/');
             }
@@ -125,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
             href === '/work' || href === '/our-work' || href === '#our-work' ||
             (href === '/' && link.classList.contains('logo'))) {
             e.preventDefault();
-            scrollToSection(href, true, 'push');
+            scrollToSection(href, true, 'push', true);
         }
     });
 
@@ -133,19 +152,19 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('popstate', () => {
         const isHomePage = !!document.getElementById('about-us');
         if (isHomePage) {
-            scrollToSection(window.location.pathname, false);
+            scrollToSection(window.location.pathname, false, 'replace', true);
         }
     });
 
     // Initial page load routing: clean any hashes and scroll to target
-    function handleInitialRoute() {
+    function handleInitialRoute(shouldScroll = false) {
         const path = window.location.pathname;
         const hash = window.location.hash;
         if (hash) {
             const cleanPath = hash.includes('about') ? '/about' : (hash.includes('work') ? '/work' : '/');
-            scrollToSection(cleanPath, true, 'replace');
+            scrollToSection(cleanPath, true, 'replace', shouldScroll);
         } else if (path && path !== '/') {
-            scrollToSection(path, false);
+            scrollToSection(path, false, 'replace', shouldScroll);
         }
     }
 
